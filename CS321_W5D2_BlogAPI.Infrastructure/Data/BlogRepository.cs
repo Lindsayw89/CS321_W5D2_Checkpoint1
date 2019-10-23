@@ -13,39 +13,49 @@ namespace CS321_W5D2_BlogAPI.Infrastructure.Data
 
         public BlogRepository(AppDbContext dbContext) 
         {
-            // TODO: inject AppDbContext
+            _dbContext = dbContext;
         }
 
         public IEnumerable<Blog> GetAll()
         {
-            // TODO: Retrieve all blgs. Include Blog.User.
-            throw new NotImplementedException();
+            return _dbContext.Blogs
+                .Include(b => b.User);
+
+            //  Retrieve all blgs. Include Blog.User.
+            //throw new NotImplementedException();
         }
 
         public Blog Get(int id)
         {
-            // TODO: Retrieve the blog by id. Include Blog.User.
-            throw new NotImplementedException();
+            return _dbContext.Blogs
+                .Include(b => b.User)
+                .FirstOrDefault(b => b.Id == id);
+            //  Retrieve the blog by id. Include Blog.User.
+           // throw new NotImplementedException();
         }
 
         public Blog Add(Blog blog)
         {
-            // TODO: Add new blog
+            _dbContext.Blogs.Add(blog);
+            _dbContext.SaveChanges();
+            return blog;
+
+            // Add new blog
             throw new NotImplementedException();
         }
 
-        public Blog Update(Blog updatedItem)
+        public Blog Update(Blog updatedBlog)
         {
-            // TODO: update blog
-            throw new NotImplementedException();
-            //var existingItem = _dbContext.Find(updatedItem.Id);
-            //if (existingItem == null) return null;
-            //_dbContext.Entry(existingItem)
-            //   .CurrentValues
-            //   .SetValues(updatedItem);
-            //_dbContext.Blogs.Update(existingItem);
-            //_dbContext.SaveChanges();
-            //return existingItem;
+            //TODO: update blog
+            //throw new NotImplementedException();
+            var existingBlog = _dbContext.Blogs.Find(updatedBlog.Id);
+            if (existingBlog == null) return null;
+            _dbContext.Entry(existingBlog)
+               .CurrentValues
+               .SetValues(updatedBlog);
+            _dbContext.Blogs.Update(existingBlog);
+            _dbContext.SaveChanges();
+            return existingBlog;
         }
 
         public void Remove(int id)
