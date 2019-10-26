@@ -18,9 +18,10 @@ namespace CS321_W5D2_BlogAPI.Controllers
     {
         private readonly IBlogService _blogService;
 
-        // TODO: inject BlogService
-        public BlogsController()
+        // inject BlogService
+        public BlogsController(IBlogService blogService)
         {
+            _blogService = blogService;
         }
 
         // GET: api/blogs
@@ -32,16 +33,19 @@ namespace CS321_W5D2_BlogAPI.Controllers
             {
                 // TODO: replace the code below with the correct implementation
                 // to return all blogs
-                return Ok(new BlogModel[] {
-                    new BlogModel
-                    {
-                        Id = 1,
-                        Name = "Fix Me!",
-                        Description = "Implement GET /api/blogs",
-                        AuthorName = "unknown",
-                    }
-                });
+                //return Ok(new BlogModel[] {
+                //    new BlogModel
+                //    {
+                //        Id = 1,
+                //        Name = "Fix Me!",
+                //        Description = "Implement GET /api/blogs",
+                //        AuthorName = "unknown",
+                //    }
+
+                //});
+                return Ok(_blogService.GetAll().ToApiModels());
             }
+
             catch (Exception ex)
             {
                 ModelState.AddModelError("GetBlog", ex.Message);
@@ -54,17 +58,18 @@ namespace CS321_W5D2_BlogAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            try
-            {
-                // TODO: replace the code below with the correct implementation
+           // TODO: replace the code below with the correct implementation
                 // to return a blog by id
-                return Ok(new BlogModel
+                //return Ok(new BlogModel
+                //{
+                //    Id = id,
+                //    Name = "Fix Me!",
+                //    Description = "Implement GET /api/blogs/{id}",
+                //    AuthorName = "unknown",
+                //});
+                try
                 {
-                    Id = id,
-                    Name = "Fix Me!",
-                    Description = "Implement GET /api/blogs/{id}",
-                    AuthorName = "unknown",
-                });
+                    return Ok(_blogService.Get(id).ToApiModel()); 
             }
             catch (Exception ex)
             {

@@ -41,7 +41,7 @@ namespace CS321_W5D2_BlogAPI.Infrastructure.Data
             return blog;
 
             // Add new blog
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public Blog Update(Blog updatedBlog)
@@ -76,7 +76,7 @@ namespace CS321_W5D2_BlogAPI.Infrastructure.Data
            // }
             
             //  remove blog
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
     }
 }

@@ -17,7 +17,8 @@ namespace CS321_W5D2_BlogAPI.Infrastructure.Data
 
         public Post Get(int id)
         {
-            return _dBContext.Posts.Include(p => p.Blog)
+            return _dBContext.Posts
+                .Include(p => p.Blog)
                 .ThenInclude(p => p.User)
                 .FirstOrDefault(p => p.Id == id);
 
